@@ -4,6 +4,7 @@ import ProfileCenter from  './components/Profile/Profile-center.vue'
 import Review from  './components/Review/Review.vue'
 import Circle from './components/Circle/Circle.vue'
 import Group from './components/Circle/Group.vue'
+import Class from './components/Classroom/Class.vue'
 
 
 
@@ -15,5 +16,6 @@ export const routes=[
     {path: '/circle', name: 'circle', component: Circle, children:[
         {path:':select', component: Group}
     ]},
+    {path: '/classroom', component: Class},
     
 ]

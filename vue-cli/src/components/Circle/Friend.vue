@@ -1,4 +1,6 @@
 <template>
+<transition name='slide' appear >
+    <div class='all'>
     <div class='friend'>
        <div class='top'>
         <div class='each'>
@@ -21,15 +23,47 @@
     <div class='myfriend'>我的好友</div>
     <div class='friend-list'><div>暂无好友，添加好友试试吧~</div></div>
     </div>
-    
+    </div>
+</transition>
 </template>
 
 <style  scoped>
+
+.all{
+    position: fixed;
+    top: 8.3rem;
+    width: 100%;
+    left: 0;
+
+
+}
+  .slide-enter{
+     left: 300px;
+     opacity: 0;
+  }
+  .slide-enter-active{
+      transform: translateX(0);
+      transition: all 0.3s;
+
+  }
+  .slide-leave{
+
+  }
+  .slide-leave-active{
+      left: 300px;
+      transition: all 0.1s;
+      opacity: 0;
+
+  }
+
+
 .top{
     display: flex;
     justify-content: space-between;
     padding: 2rem 5rem;
     background: #F8F7F1;
+    
+
 }
 svg{
     width: 2rem;

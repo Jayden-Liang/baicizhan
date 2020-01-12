@@ -2,17 +2,17 @@
     <div>
         <div class='togglar'>
 
-               <div :class="{active:attached, normal: !anything}" @click="Finding">
+               <div :class="{active:attached}" @click="Finding">
                    发现
                </div>
-               <div :class="{active:!attached, normal: !anything}" @click="Friend">
+               <div :class="{active:!attached}" @click="Friend">
                    好友
                </div>                    
         </div>
-        <transition name='myFade' mode='out-in'> 
-              <component :is='selectedCmp'></component>
-
-        </transition>
+        <div class='cmp'>
+           <component :is='selectedCmp'></component>
+        </div>
+              
          
     </div>
 </template>
@@ -50,7 +50,12 @@ export default {
 
 
 <style scoped>
+
+.cmp{
+    position: relative;
+}
 .togglar{
+    width: 100%;
     text-align: center;
     padding-top: 4.2rem;
     font-size: 1.7rem;
@@ -58,10 +63,10 @@ export default {
 }
 
 
- .normal{
+ .togglar div{
      list-style: none;
      display: inline-block;
-     width: 49.5%;
+     width: 49.3%;
      height: 4rem;
      text-decoration: none;
      color: grey;
@@ -69,8 +74,10 @@ export default {
  }
 .active{
     border-bottom: 3px #4c4cff solid;
-    color: 	#9999ff;
+    color: 	#9999ff !important;
 }
+
+
 
 
 
