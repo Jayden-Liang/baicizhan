@@ -16,10 +16,22 @@
           @leave='leave'
           @after-leave='afterLeave'
           @leave-cancelled='leaveCancelled'
-
+          
           appear>
-       <div :class='ProgressClass' style="height: 100px; background-color:lightgreen; "></div>
+       <div :class='ProgressClass' v-if='!dataLoaded' style="height: 5px; background-color:lightgreen; "></div>
     </transition>
+
+    <div>
+        <h2>延伸学习</h2>
+        <div class='each'>
+            <div class='pic'>图片</div>
+            <div class='des-group'>
+                <div>一串单词</div>
+                <div>用记住一个单词的时间，记住一串单词。</div>
+                <div>共21篇文章</div>
+            </div>
+        </div>
+    </div>
     
 </div>
     
@@ -27,59 +39,77 @@
 
 
 <script>
+const axios = require('axios');
+
 export default {
     data(){
         return{
             ProgressClass:'initialClass',
-            elementWidth: 100,
-            dataLoaded: false
+            elementWidth: 0,
+            dataLoaded: false,
+            serverData:''
         }
     },
     created(){
-        console.log(window.screenWidth )
         setTimeout(()=>{
+        axios.get('http://hit-the-road.cc/api/classroom/show').then(
+             (response)=>{
+                 const r=JSON.parse(response.data)
+                 this.serverData=r
+             }
+         )
          this.dataLoaded=true
-        }, 1000)
+        },50)
     },
+     beforeMount(){
+         console.log('beforeMount')
+         
+
+     },
+
     methods:{
         beforeEnter(el){
-            this.elementWidth =100
+            this.elementWidth =0
             el.style.width=this.elementWidth+'px'
         },
         enter(el, done){
-        let round =1
-        const interval = setInterval(()=>{
-           el.style.width= this.elementWidth + round*10 +'px';
-           round++
-           if (this.dataLoaded){
+            if (this.dataLoaded==false){
+                console.log('once')
+            const interval = setInterval(()=>{
+            this.elementWidth=this.elementWidth+10
+            el.style.width= this.elementWidth +'px';
+            if (this.dataLoaded || this.elementWidth>500){
                console.log('yes')
                clearInterval(interval)
                done()          
            }
-        },20)
+        },50)
+            }
+            
        },
        afterEnter(el){
-           console.log('afterEnter')
+
+           
        },
        enterCancelled(el){
            console.log('enterCancelled')
        },
        beforeLeave(el){
-           console.log('beforeLeave')
-           this.elementWidth=300
            el.style.width=this.elementWidth+'px'
        },
        leave(el,done){
            console.log('Leave')
-           let round =1
-           const interval = setInterval(()=>{
-           el.style.width= (this.elementWidth - round*10) +'px';
-           round++
-           if (round>20){
+              if (this.dataLoaded==true){
+              const interval = setInterval(()=>{
+            this.elementWidth=this.elementWidth+50
+           el.style.width= this.elementWidth +'px';
+           if (this.elementWidth>=800){
+               console.log('yes')
+               el.style.opacity=0
                clearInterval(interval)
-               done()          
            }
         },20)
+           }
        },
        afterLeave(el){
            console.log('afterLeave')
@@ -93,6 +123,10 @@ export default {
 </script>
 
 <style  scoped>
+
+
+
+
 .header{
     padding: 0 2.5rem;
     padding-top: 4.2rem;
@@ -102,6 +136,21 @@ export default {
     justify-content: space-between;
     color: grey;
     
+}
+
+.each{
+    display: flex;
+}
+
+.pic{
+    height: 100px;
+    width:200px;
+}
+
+h2{
+    margin: 2rem;
+    padding-left: 1rem;
+    border-left: 2px red solid;
 }
 
 .h-tag{
