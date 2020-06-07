@@ -5,6 +5,7 @@ import Review from  './components/Review/Review.vue'
 import Circle from './components/Circle/Circle.vue'
 import Group from './components/Circle/Group.vue'
 import Class from './components/Classroom/Class.vue'
+import Test from './components/test.vue'
 
 
 
@@ -17,5 +18,7 @@ export const routes=[
         {path:':select', component: Group}
     ]},
     {path: '/classroom', component: Class},
+    {path: '/test', component: Test},
+
     
 ]
