@@ -5,6 +5,7 @@ import { routes } from './router'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { store } from './store/store'
+import wx from "weixin-jsapi"; 
 
 import { 
   faChevronRight,
@@ -29,6 +30,8 @@ library.add(
 
 
 Vue.use(VueRouter);
+
+Vue.prototype.wx = wx
 
 const router = new VueRouter({
   routes

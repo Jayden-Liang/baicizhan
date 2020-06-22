@@ -19,7 +19,8 @@
     "vue": "^2.6.11",
     "vue-router": "^3.1.3",
     "vuex": "^3.1.2",
-    "webpack": "^4.41.5"
+    "webpack": "^4.41.5",
+    "weixin-jsapi": "^1.1.0"
   },
   "browserslist": [
     "> 1%",
